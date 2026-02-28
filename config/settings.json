@@ -1,0 +1,12 @@
+{
+    "_comment": "Dayea Wisdom Suite Configuration File - Edit these settings to customize the tool",
+    "_comment2": "IMPORTANT: Only list systems you are AUTHORIZED to test in 'scope'",
+    "scope": [],
+    "scan_speed": "normal",
+    "scan_timeout": 30,
+    "output_dir": "reports",
+    "max_threads": 10,
+    "verbose": false,
+    "web_test_depth": 2,
+    "port_range": "1-1024"
+}
