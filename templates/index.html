@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dayea Wisdom Suite — Security Operations Dashboard</title>
+<title>Dayea — Security Operations Dashboard</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   /* ═══════════════════════════════════════════════════════
@@ -862,7 +862,7 @@
       <div class="brand-name">Dayea<span> Wisdom</span></div>
       <div class="brand-name2">Suite</div>
       <div class="brand-tagline">SECURITY OPERATIONS v1.0</div>
-      <div class="brand-lore">Named for Dayea — Filipino Goddess of Wisdom</div>
+      <div class="brand-lore">Open Source Security Platform</div>
     </div>
 
     <div id="authBadge" class="auth-badge unauthorized" onclick="openAuthModal()">
@@ -992,7 +992,7 @@
 
           <div style="display:flex; gap:12px; margin-top:4px;">
             <button class="btn btn-primary" onclick="launchFullScan()" style="flex:1; justify-content:center;">🚀 Run Full Scan</button>
-            <button class="btn btn-secondary" onclick="generateReport()" id="reportBtn" style="flex:1; justify-content:center;">📄 Run Debrief</button>
+            <button class="btn btn-secondary" onclick="generateReport()" id="reportBtn" style="flex:1; justify-content:center;">Run Debrief</button>
           </div>
         </div>
 
@@ -1001,7 +1001,7 @@
           <div class="log-panel" id="logPanel">
             <div class="log-line">
               <span class="log-time">--:--:--</span>
-              <span class="log-msg info">Dayea Wisdom Suite dashboard initialized. Awaiting authorization.</span>
+              <span class="log-msg info">Dayea dashboard initialized. Awaiting authorization.</span>
             </div>
           </div>
         </div>
@@ -1010,10 +1010,10 @@
       <!-- ══ VIEW: SCOUT ══ -->
       <div id="view-scout" class="view">
         <div id="scoutLock" class="lock-notice" style="display:none">
-          🔒 You must complete authorization before running scans. <a href="#" onclick="openAuthModal()" style="color:var(--red); margin-left:6px;">Authorize now →</a>
+          You must complete authorization before running scans. <a href="#" onclick="openAuthModal()" style="color:var(--red); margin-left:6px;">Authorize now →</a>
         </div>
         <div class="card">
-          <div class="card-title">🗺️ Recon — Network Scanner</div>
+          <div class="card-title">Recon — Network Scanner</div>
           <p style="color:var(--text-secondary); font-size:13px; line-height:1.7; margin-bottom:20px;">
             Recon walks the perimeter of your network. It discovers every active device, 
             checks which ports are open (like checking which doors and windows are unlocked), 
@@ -1047,10 +1047,10 @@
       <!-- ══ VIEW: INSPECTOR ══ -->
       <div id="view-inspector" class="view">
         <div id="inspectorLock" class="lock-notice" style="display:none">
-          🔒 Authorization required. <a href="#" onclick="openAuthModal()" style="color:var(--red); margin-left:6px;">Authorize now →</a>
+          Authorization required. <a href="#" onclick="openAuthModal()" style="color:var(--red); margin-left:6px;">Authorize now →</a>
         </div>
         <div class="card">
-          <div class="card-title">🔍 Intel — Vulnerability Assessment</div>
+          <div class="card-title">Intel — Vulnerability Assessment</div>
           <p style="color:var(--text-secondary); font-size:13px; line-height:1.7; margin-bottom:20px;">
             Intel takes what Recon found and goes deeper. It checks every service 
             against known vulnerability databases (CVEs), tests for weak configurations, 
@@ -1070,10 +1070,10 @@
       <!-- ══ VIEW: WEB TESTER ══ -->
       <div id="view-webtester" class="view">
         <div id="webLock" class="lock-notice" style="display:none">
-          🔒 Authorization required. <a href="#" onclick="openAuthModal()" style="color:var(--red); margin-left:6px;">Authorize now →</a>
+          Authorization required. <a href="#" onclick="openAuthModal()" style="color:var(--red); margin-left:6px;">Authorize now →</a>
         </div>
         <div class="card">
-          <div class="card-title">🌐 Breach — OWASP Top 10 Scanner</div>
+          <div class="card-title">Breach — OWASP Top 10 Scanner</div>
           <p style="color:var(--text-secondary); font-size:13px; line-height:1.7; margin-bottom:20px;">
             Tests web applications against the OWASP Top 10 — the industry standard list of 
             the 10 most critical web security risks. Think of these as the 10 most common 
@@ -1097,7 +1097,7 @@
       <!-- ══ VIEW: FINDINGS ══ -->
       <div id="view-findings" class="view">
         <div class="card">
-          <div class="card-title">⚠️ All Findings</div>
+          <div class="card-title">All Findings</div>
           <div id="findingsContainer">
             <div class="empty-state">
               <div class="empty-icon">🔍</div>
@@ -1111,7 +1111,7 @@
       <!-- ══ VIEW: REPORTS ══ -->
       <div id="view-reports" class="view">
         <div class="card">
-          <div class="card-title">📋 Debrief Reports</div>
+          <div class="card-title">Debrief Reports</div>
           <div id="reportsContainer">
             <div class="empty-state">
               <div class="empty-icon">📄</div>
@@ -1343,7 +1343,7 @@ async function submitAuth() {
       // Show scope chips in topbar
       const scopeDisplay = document.getElementById('scopeDisplay');
       scopeDisplay.innerHTML = state.scope
-        .map(s => `<span class="scope-chip">🎯 ${s}</span>`)
+        .map(s => `<span class="scope-chip">${s}</span>`)
         .join(' ');
 
       closeAuthModal();
@@ -1395,10 +1395,10 @@ async function launchScan(module) {
 
     const data = await res.json();
     if (!data.success) {
-      addLogEntry('❌ ' + data.error, 'error');
+      addLogEntry('' + data.error, 'error');
     }
   } catch (e) {
-    addLogEntry('❌ Could not connect to server', 'error');
+    addLogEntry('Could not connect to server', 'error');
   }
 }
 
@@ -1577,7 +1577,7 @@ async function generateReport() {
   const btn = document.getElementById('reportBtn');
   btn.disabled = true;
   btn.textContent = '⏳ Generating...';
-  addLogEntry('📄 Starting PDF report generation...', 'info');
+  addLogEntry('Starting PDF report generation...', 'info');
 
   try {
     const res = await fetch('/api/report/generate', {
@@ -1587,14 +1587,14 @@ async function generateReport() {
     });
     const data = await res.json();
     if (!data.success) {
-      addLogEntry('❌ ' + (data.error || 'Report generation failed'), 'error');
+      addLogEntry('' + (data.error || 'Report generation failed'), 'error');
     }
   } catch(e) {
-    addLogEntry('❌ Could not connect to server', 'error');
+    addLogEntry('Could not connect to server', 'error');
   } finally {
     setTimeout(() => {
       btn.disabled = false;
-      btn.textContent = '📄 Run Debrief';
+      btn.textContent = 'Run Debrief';
     }, 3000);
   }
 }
@@ -1609,7 +1609,7 @@ eventSource.addEventListener('message', function(e) {
       // Show a notification
       const notice = document.createElement('div');
       notice.style.cssText = 'position:fixed;top:70px;right:20px;background:#00cc6a;color:#060810;padding:12px 20px;border-radius:6px;font-weight:bold;z-index:9999;font-size:13px;';
-      notice.textContent = '📄 PDF Report Generated — Check Reports tab';
+      notice.textContent = 'PDF Report Generated — Check Reports tab';
       document.body.appendChild(notice);
       setTimeout(() => notice.remove(), 5000);
     }
@@ -1619,8 +1619,8 @@ eventSource.addEventListener('message', function(e) {
 // ─────────────────────────────────────────────
 // INIT
 // ─────────────────────────────────────────────
-addLogEntry('🛡️ Dayea Wisdom Suite dashboard initialized', 'success');
-addLogEntry('⚠️  Awaiting authorization before scans can run', 'warning');
+addLogEntry('Dayea dashboard initialized', 'success');
+addLogEntry(' Awaiting authorization before scans can run', 'warning');
 </script>
 </body>
 </html>

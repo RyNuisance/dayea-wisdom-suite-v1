@@ -91,7 +91,7 @@ class ConfigLoader:
         os.makedirs("config", exist_ok=True)
 
         default_config = {
-            "_comment": "Dayea Wisdom Suite Configuration File - Edit these settings to customize the tool",
+            "_comment": "Dayea Configuration File - Edit these settings to customize the tool",
             "scope": [],
             "scan_speed": "normal",
             "scan_timeout": 30,

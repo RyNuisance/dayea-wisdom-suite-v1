@@ -1,5 +1,5 @@
 {
-    "_comment": "Dayea Wisdom Suite Configuration File - Edit these settings to customize the tool",
+    "_comment": "Dayea Configuration File - Edit these settings to customize the tool",
     "_comment2": "IMPORTANT: Only list systems you are AUTHORIZED to test in 'scope'",
     "scope": [],
     "scan_speed": "normal",

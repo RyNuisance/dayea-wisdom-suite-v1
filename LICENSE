@@ -1,61 +1,16 @@
-MIT License
+AGPL-3.0 License
 
-Copyright (c) 2026 Dayea Wisdom Suite
+Copyright (c) 2026 Dayea Group
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published
+by the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
----
-
-ETHICAL USE NOTICE
-
-This software is intended for authorized security testing only. The MIT License
-grants broad permissions to use and distribute this software. However, those
-permissions do not override applicable law.
-
-Users of this software are solely responsible for ensuring their use complies
-with all applicable local, state, national, and international laws and
-regulations. Unauthorized use of this software to scan, probe, or test systems
-without explicit written permission from the system owner is illegal and
-expressly prohibited by the authors of this software.
-
-The authors and contributors of Dayea Wisdom Suite accept no liability for
-any illegal, harmful, or unethical use of this software.
-
-Use wisely. Test responsibly.
-
----
-
-NO SUPPORT OR MAINTENANCE
-
-This software is provided with no commitment to support, maintenance,
-updates, or bug fixes of any kind. The author has no obligation to
-respond to issues, pull requests, questions, or bug reports.
-
-All use is at the user's own risk. The author accepts no liability
-for any damage, data loss, security incidents, or legal consequences
-arising from the use or misuse of this software.
-
----
-
-PERSONAL PROJECT DISCLAIMER
-
-This software is a personal project and does not represent the views,
-standards, practices, or opinions of any employer, client, or
-organization — past, present, or future. It is not affiliated with,
-endorsed by, or connected to any company or institution.
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.

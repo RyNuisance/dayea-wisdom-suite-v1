@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
 ╔══════════════════════════════════════════════════════════════╗
-║           DAYEA WISDOM SUITE - Professional Penetration Testing      ║
+║           DAYEA - Professional Penetration Testing      ║
 ║                    Framework v1.0                            ║
 ║                                                              ║
-║  ⚠️  FOR AUTHORIZED USE ONLY ⚠️                              ║
+║   FOR AUTHORIZED USE ONLY                              ║
 ║  Only run this against systems you OWN or have WRITTEN       ║
 ║  permission to test. Unauthorized use is illegal.            ║
 ╚══════════════════════════════════════════════════════════════╝
@@ -33,14 +33,14 @@ def startup_banner():
     ██████╔╝██║  ██║   ██║   ███████╗██║  ██║
     ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚══════╝╚═╝  ╚═╝
     
-        W I S D O M   S U I T E  v 1 . 0
+        Professional Security Testing Framework
     ─────────────────────────────────────────────
-    Named for Dayea — Filipino Goddess of Wisdom
+    Open Source Security Platform
     Professional Security Testing Framework
     
     Started: {time}
     
-    ⚠️  LEGAL REMINDER: Only test systems you are AUTHORIZED to test ⚠️
+     LEGAL REMINDER: Only test systems you are AUTHORIZED to test ⚠️
     """.format(time=datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
 
@@ -62,13 +62,13 @@ def main():
     # Step 2: Initialize the logger first
     # The logger is like a security camera — it records EVERYTHING the tool does
     logger = ToolkitLogger()
-    logger.info("Dayea Wisdom Suite started")
+    logger.info("Dayea started")
 
     # Step 3: Authorization Gate
     # This is the bouncer at the door. You MUST prove you have permission before anything runs.
     auth = AuthorizationGate(logger)
     if not auth.verify():
-        print("\n❌ Authorization not confirmed. Exiting for safety.")
+        print("\nAuthorization not confirmed. Exiting for safety.")
         print("   You must have written permission to test a target system.")
         logger.warning("Authorization denied - tool exited")
         sys.exit(1)
@@ -79,7 +79,7 @@ def main():
     settings = config.load()
 
     if not settings:
-        print("\n❌ Could not load configuration. Please check config/settings.yaml")
+        print("\nCould not load configuration. Please check config/settings.yaml")
         sys.exit(1)
 
     # Step 5: Launch the main menu
