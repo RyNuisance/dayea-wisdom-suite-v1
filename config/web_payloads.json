@@ -1,0 +1,247 @@
+{
+  "_info": "PenToolkit — Web Application Test Payload Database v1.0",
+  "_description": "Detection payloads for OWASP Top 10 testing. These are DETECTION probes only — they look for vulnerability indicators without exploiting them.",
+  "_important": "These payloads are designed to cause observable differences in responses (timing, error messages, redirects) that INDICATE a vulnerability exists. They do not extract data or cause harm.",
+
+  "owasp_categories": {
+    "A01": "Broken Access Control",
+    "A02": "Cryptographic Failures",
+    "A03": "Injection",
+    "A04": "Insecure Design",
+    "A05": "Security Misconfiguration",
+    "A06": "Vulnerable and Outdated Components",
+    "A07": "Identification and Authentication Failures",
+    "A08": "Software and Data Integrity Failures",
+    "A09": "Security Logging and Monitoring Failures",
+    "A10": "Server-Side Request Forgery (SSRF)"
+  },
+
+  "sql_injection": {
+    "description": "SQL Injection — attacker tricks database into running unintended queries",
+    "owasp": "A03",
+    "detection_payloads": [
+      {"payload": "'",           "type": "syntax",  "desc": "Single quote — causes SQL syntax error if not sanitised"},
+      {"payload": "''",          "type": "syntax",  "desc": "Double quote — alternative syntax error trigger"},
+      {"payload": "1 OR 1=1",    "type": "boolean", "desc": "Boolean OR — always-true condition"},
+      {"payload": "1 AND 1=2",   "type": "boolean", "desc": "Boolean AND — always-false condition"},
+      {"payload": "1; SELECT 1", "type": "stacked", "desc": "Stacked query attempt"},
+      {"payload": "1'--",        "type": "comment", "desc": "SQL comment injection"}
+    ],
+    "error_signatures": [
+      "you have an error in your sql syntax",
+      "warning: mysql",
+      "unclosed quotation mark",
+      "quoted string not properly terminated",
+      "sql syntax",
+      "ora-00933",
+      "ora-01756",
+      "microsoft ole db provider for sql server",
+      "odbc microsoft access driver",
+      "sqlite_error",
+      "pg::syntaxerror",
+      "psql error",
+      "db2 sql error",
+      "invalid query",
+      "mysql_fetch",
+      "supplied argument is not a valid mysql",
+      "query failed"
+    ],
+    "severity": "critical",
+    "recommendation": "Use parameterised queries (prepared statements) for ALL database operations. NEVER concatenate user input into SQL strings. Use an ORM. Apply input validation and output encoding."
+  },
+
+  "xss": {
+    "description": "Cross-Site Scripting — attacker injects malicious scripts that run in victims' browsers",
+    "owasp": "A03",
+    "detection_payloads": [
+      {"payload": "<script>alert(1)</script>",        "type": "reflected", "desc": "Basic script tag injection"},
+      {"payload": "<img src=x onerror=alert(1)>",     "type": "reflected", "desc": "Image error event handler"},
+      {"payload": "javascript:alert(1)",               "type": "reflected", "desc": "JavaScript URI"},
+      {"payload": "<svg onload=alert(1)>",             "type": "reflected", "desc": "SVG onload handler"},
+      {"payload": "'\"><script>alert(1)</script>",     "type": "reflected", "desc": "Quote-breaking injection"},
+      {"payload": "<body onload=alert(1)>",            "type": "reflected", "desc": "Body event injection"}
+    ],
+    "detection_method": "Check if payload appears unencoded in response body",
+    "severity": "high",
+    "recommendation": "Encode ALL output before rendering in HTML. Use Content-Security-Policy headers. Never trust user-supplied data. Use a template engine that auto-escapes output."
+  },
+
+  "path_traversal": {
+    "description": "Path Traversal — attacker accesses files outside the intended web directory",
+    "owasp": "A01",
+    "test_paths": [
+      "../etc/passwd",
+      "../../etc/passwd",
+      "../../../etc/passwd",
+      "../../../../etc/passwd",
+      "../windows/win.ini",
+      "..\\windows\\win.ini",
+      "%2e%2e%2fetc%2fpasswd",
+      "%2e%2e/%2e%2e/etc/passwd",
+      "....//....//etc/passwd"
+    ],
+    "success_indicators": [
+      "root:x:0:0",
+      "[extensions]",
+      "for 16-bit app support",
+      "[fonts]"
+    ],
+    "severity": "critical",
+    "recommendation": "Validate and sanitise all file path inputs. Use a whitelist of allowed paths. Never concatenate user input with file system paths. Chroot web processes where possible."
+  },
+
+  "open_redirect": {
+    "description": "Open Redirect — attacker uses the site to redirect victims to malicious URLs",
+    "owasp": "A01",
+    "redirect_params": ["url", "redirect", "next", "return", "returnUrl", "return_url", "goto", "dest", "destination", "redir", "redirect_uri", "redirectUrl", "forward"],
+    "test_values": [
+      "https://evil.example.com",
+      "//evil.example.com",
+      "///evil.example.com",
+      "https:evil.example.com"
+    ],
+    "severity": "medium",
+    "recommendation": "Avoid redirect parameters entirely if possible. If required, use a whitelist of allowed redirect destinations. Validate that redirect URLs belong to your own domain."
+  },
+
+  "sensitive_files": {
+    "description": "Sensitive File Exposure — configuration and backup files left accessible",
+    "owasp": "A05",
+    "paths": [
+      {"path": "/.env",                    "desc": "Environment config — often contains database passwords and API keys"},
+      {"path": "/.env.local",              "desc": "Local environment config"},
+      {"path": "/.env.production",         "desc": "Production environment config"},
+      {"path": "/config.php",              "desc": "PHP config file"},
+      {"path": "/config.yml",              "desc": "YAML config file"},
+      {"path": "/config.yaml",             "desc": "YAML config file"},
+      {"path": "/wp-config.php",           "desc": "WordPress config — contains DB credentials"},
+      {"path": "/wp-config.php.bak",       "desc": "WordPress config backup"},
+      {"path": "/.git/config",             "desc": "Git repository config — may expose source code"},
+      {"path": "/.git/HEAD",               "desc": "Git HEAD file — confirms git repo exposure"},
+      {"path": "/phpinfo.php",             "desc": "PHP info page — reveals server configuration"},
+      {"path": "/server-status",           "desc": "Apache server status — reveals requests and IPs"},
+      {"path": "/server-info",             "desc": "Apache server info"},
+      {"path": "/backup.sql",              "desc": "Database backup file"},
+      {"path": "/backup.zip",              "desc": "Site backup archive"},
+      {"path": "/db.sql",                  "desc": "Database dump"},
+      {"path": "/database.sql",            "desc": "Database dump"},
+      {"path": "/admin",                   "desc": "Admin panel"},
+      {"path": "/admin/",                  "desc": "Admin panel"},
+      {"path": "/administrator",           "desc": "Admin panel (Joomla)"},
+      {"path": "/phpmyadmin",              "desc": "phpMyAdmin database interface"},
+      {"path": "/phpmyadmin/",             "desc": "phpMyAdmin database interface"},
+      {"path": "/robots.txt",              "desc": "Robots file — may reveal hidden paths"},
+      {"path": "/sitemap.xml",             "desc": "Sitemap — reveals all URLs"},
+      {"path": "/.htaccess",               "desc": "Apache config — may reveal security rules"},
+      {"path": "/web.config",              "desc": "IIS config file"},
+      {"path": "/crossdomain.xml",         "desc": "Flash cross-domain policy"},
+      {"path": "/.DS_Store",               "desc": "macOS folder metadata — reveals directory structure"},
+      {"path": "/api/swagger.json",        "desc": "Swagger API docs — reveals all endpoints"},
+      {"path": "/api/docs",                "desc": "API documentation"},
+      {"path": "/actuator",                "desc": "Spring Boot actuator — exposes app internals"},
+      {"path": "/actuator/env",            "desc": "Spring Boot env endpoint — exposes config"},
+      {"path": "/actuator/health",         "desc": "Spring Boot health endpoint"},
+      {"path": "/.well-known/security.txt","desc": "Security contact info (good if present)"}
+    ],
+    "severity_map": {
+      ".env": "critical",
+      "wp-config": "critical",
+      ".git": "high",
+      "phpmyadmin": "high",
+      "phpinfo": "medium",
+      "backup": "high",
+      "admin": "medium"
+    }
+  },
+
+  "security_headers": {
+    "description": "HTTP Security Headers — browser instructions for safe behaviour",
+    "owasp": "A05",
+    "required_headers": [
+      {
+        "header": "Content-Security-Policy",
+        "severity": "medium",
+        "description": "Prevents Cross-Site Scripting by defining trusted content sources",
+        "recommendation": "Add a Content-Security-Policy header. Start with: Content-Security-Policy: default-src 'self'"
+      },
+      {
+        "header": "X-Frame-Options",
+        "severity": "medium",
+        "description": "Prevents your site from being embedded in iframes (clickjacking protection)",
+        "recommendation": "Add: X-Frame-Options: DENY (or SAMEORIGIN if you embed your own site)"
+      },
+      {
+        "header": "X-Content-Type-Options",
+        "severity": "low",
+        "description": "Prevents browsers from guessing content types (MIME sniffing attacks)",
+        "recommendation": "Add: X-Content-Type-Options: nosniff"
+      },
+      {
+        "header": "Strict-Transport-Security",
+        "severity": "medium",
+        "description": "Forces browsers to always use HTTPS for this domain",
+        "recommendation": "Add: Strict-Transport-Security: max-age=31536000; includeSubDomains"
+      },
+      {
+        "header": "Referrer-Policy",
+        "severity": "low",
+        "description": "Controls what referrer information is sent with requests",
+        "recommendation": "Add: Referrer-Policy: strict-origin-when-cross-origin"
+      },
+      {
+        "header": "Permissions-Policy",
+        "severity": "low",
+        "description": "Controls which browser features the page can use (camera, microphone, etc.)",
+        "recommendation": "Add: Permissions-Policy: geolocation=(), microphone=(), camera=()"
+      }
+    ]
+  },
+
+  "cors": {
+    "description": "CORS Misconfiguration — overly permissive cross-origin resource sharing",
+    "owasp": "A01",
+    "test_origins": [
+      "https://evil.example.com",
+      "null"
+    ],
+    "dangerous_responses": [
+      {"header": "Access-Control-Allow-Origin", "value": "*",    "severity": "medium", "desc": "Wildcard CORS — any origin can read responses"},
+      {"header": "Access-Control-Allow-Origin", "value": "null", "severity": "high",   "desc": "Null origin allowed — exploitable via sandboxed iframes"}
+    ],
+    "severity": "medium",
+    "recommendation": "Never use Access-Control-Allow-Origin: * for authenticated endpoints. Whitelist specific trusted origins only."
+  },
+
+  "info_disclosure": {
+    "description": "Information disclosure through error messages and headers",
+    "owasp": "A05",
+    "server_version_pattern": "([A-Za-z-]+)/([\\d.]+)",
+    "stack_trace_indicators": [
+      "stack trace",
+      "traceback",
+      "exception in thread",
+      "at java.",
+      "system.exception",
+      "php fatal error",
+      "warning: include",
+      "error on line",
+      "undefined index",
+      "mysql_connect()",
+      "pg_connect()",
+      "django.core.exceptions"
+    ],
+    "severity": "low",
+    "recommendation": "Disable detailed error messages in production. Use custom error pages. Log errors server-side only."
+  },
+
+  "common_admin_paths": [
+    "/admin", "/admin/", "/administrator", "/administrator/",
+    "/wp-admin", "/wp-admin/", "/wp-login.php",
+    "/login", "/login/", "/signin", "/sign-in",
+    "/dashboard", "/panel", "/cp", "/controlpanel",
+    "/manage", "/management", "/manager",
+    "/user/login", "/account/login", "/auth/login",
+    "/backend", "/backend/",
+    "/cms", "/cms/admin"
+  ]
+}
